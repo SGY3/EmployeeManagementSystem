@@ -1,0 +1,9 @@
+﻿delete from MstrActivity;
+delete from MstrActivityType;
+delete from MstrAttachments;
+delete from MstrLogin;
+delete from MstrOraganization;
+delete from MstrProgress;
+delete from MstrProject;
+delete from MstrSignup;
+delete from MstrTodo;

@@ -1,0 +1,41 @@
+﻿.centerDiv {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.borderShadow {
+    border: 1px solid #dee2e6 !important;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    border-radius: 1.25rem !important;
+    padding: 1.25rem;
+}
+.leftBorder {
+    font-size: 20px;
+    /* margin: 0 0 20px 0;*/
+    padding: 2px 0 2px 10px;
+    line-height: 1;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    /* letter-spacing: 3px;*/
+    border-left: 4px solid #0e2bae;
+}
+.bottomDiv {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.CenterPB {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-top: -20px; /* make this half your image/element height */
+    margin-left: -20px; /* make this half your image/element width */
+    width: auto;
+    height: auto;
+}
+@media only screen and (max-width: 600px) {
+    .borderShadow {
+        width: 98% !important;
+    }
+}

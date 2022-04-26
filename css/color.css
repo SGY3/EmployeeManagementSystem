@@ -1,0 +1,12 @@
+﻿.blueGrad {
+    background: linear-gradient(45deg, #4099ff, #73b4ff);   
+}
+.greenGrad {
+    background: linear-gradient(45deg, #2ed8b6, #59e0c5);
+}
+.yellowGrad {
+    background: linear-gradient(45deg, #FFB64D, #ffcb80);
+}
+.pinkGrad {
+    background: linear-gradient(45deg, #FF5370, #ff869a);
+}

@@ -1,0 +1,71 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="home.master.cs" Inherits="ActivityManagementSystem.home" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/utility.css" rel="stylesheet" />
+    <link href="lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="lib/aos/aos.css" rel="stylesheet" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        body {
+            background-image: url('img/login.jpg');
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand text-primary"><i class="bi bi-person-lines-fill mx-2"></i>AMS</a>
+                <div class="d-flex">
+                    <div class="btn-group dropstart">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <li>
+                                <a href="Login.aspx" class="dropdown-item" type="button">Login</a></li>
+                            <li>
+                                <a href="Register.aspx" class="dropdown-item" type="button">Sign up</a></li>
+                            <li>
+                                <a href="CreateOrganization.aspx" class="dropdown-item" type="button">Create Organization</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div id="divMsg" class="bottomDiv" runat="server">
+        </div>
+    </form>
+
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            window.setTimeout(function () {
+                $(".alert").fadeTo(1000, 0).fadeOut(1000, function () {
+                    $(this).remove();
+                    $(".bottomDiv").html('');
+                });
+            }, 3000);
+
+        });
+    </script>
+    <script src="lib/aos/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>
