@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace ActivityManagementSystem
+namespace EmployeeManagementSystem
 {
     public partial class Empty : System.Web.UI.MasterPage
     {

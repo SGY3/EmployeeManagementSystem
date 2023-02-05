@@ -6,7 +6,7 @@ using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace ActivityManagementSystem
+namespace EmployeeManagementSystem
 {
     public partial class home : System.Web.UI.MasterPage
     {

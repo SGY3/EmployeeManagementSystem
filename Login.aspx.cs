@@ -1,13 +1,8 @@
-﻿using ActivityManagementSystem.App_Code;
+﻿using EmployeeManagementSystem.App_Code;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
-namespace ActivityManagementSystem
+namespace EmployeeManagementSystem
 {
     public partial class Login : System.Web.UI.Page
     {
@@ -48,7 +43,7 @@ namespace ActivityManagementSystem
                                 Session["PassFlag"] = reader["PasswordResetFlag"].ToString();
                                 if (Session["PassFlag"].ToString() != "Y")
                                     Response.Redirect("Dashboard.aspx");
-                                else 
+                                else
                                     Response.Redirect("ChangePassword.aspx");
                             }
                         }

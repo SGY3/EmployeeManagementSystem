@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="home.master.cs" Inherits="ActivityManagementSystem.home" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="home.master.cs" Inherits="EmployeeManagementSystem.home" %>
 
 <!DOCTYPE html>
 
@@ -6,7 +6,8 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <%--<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />--%>
+    <link href="css/bootstrap.min_Materia.css" rel="stylesheet" />
     <link href="css/utility.css" rel="stylesheet" />
     <link href="lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
     <link href="lib/aos/aos.css" rel="stylesheet" />
@@ -15,7 +16,9 @@
     </asp:ContentPlaceHolder>
     <style>
         body {
-            background-image: url('img/login.jpg');
+            background-image: url('img/bg-img.jpg');
+            background-repeat: no-repeat;
+            background-size:cover;
         }
     </style>
 </head>
@@ -23,11 +26,10 @@
     <form id="form1" runat="server">
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand text-primary"><i class="bi bi-person-lines-fill mx-2"></i>AMS</a>
+                <a class="navbar-brand text-primary"><i class="bi bi-person-lines-fill mx-2"></i>EMS</a>
                 <div class="d-flex">
                     <div class="btn-group dropstart">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                             <li>

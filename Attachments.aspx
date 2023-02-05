@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Empty.Master" AutoEventWireup="true" CodeBehind="Attachments.aspx.cs" Inherits="ActivityManagementSystem.Attachments" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Empty.Master" AutoEventWireup="true" CodeBehind="Attachments.aspx.cs" Inherits="EmployeeManagementSystem.Attachments" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -47,6 +47,7 @@
                         <asp:BoundField DataField="AttachmentId" HeaderText="AttachmentId" ItemStyle-CssClass="d-none" HeaderStyle-CssClass="d-none" />
                         <asp:BoundField DataField="FileName" HeaderText="FileName" />
                         <asp:BoundField DataField="FilePath" HeaderText="FilePath" ItemStyle-CssClass="d-none" HeaderStyle-CssClass="d-none" />
+                        <asp:BoundField DataField="UploadFileName" HeaderText="UploadFileName" ItemStyle-CssClass="d-none" HeaderStyle-CssClass="d-none"/>
                         <asp:BoundField DataField="Remark" HeaderText="Remark" />
                         <asp:BoundField DataField="UploadOn" HeaderText="UploadOn" />
                         <asp:BoundField DataField="UploadedBy" HeaderText="UploadedBy" />

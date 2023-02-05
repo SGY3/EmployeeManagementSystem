@@ -72,9 +72,13 @@
     <Content Include="AddEmployee.aspx" />
     <Content Include="AddProject.aspx" />
     <Content Include="Attachments.aspx" />
+    <Content Include="Attendance.aspx" />
     <Content Include="ChangePassword.aspx" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\bootstrap.min_Materia.css" />
     <Content Include="css\color.css" />
+    <Content Include="img\bg-img.jpg" />
+    <Content Include="img\EMS.png" />
     <Content Include="img\Gif\Book.gif" />
     <Content Include="img\Gif\Circles-menu-3.gif" />
     <Content Include="img\Gif\Fidget-spinner.gif" />
@@ -93,7 +97,9 @@
     <Content Include="lib\jquery\jquery.min.js" />
     <Content Include="lib\jquery\jquery.slim.js" />
     <Content Include="lib\jquery\jquery.slim.min.js" />
+    <Content Include="PaySlip.aspx" />
     <Content Include="SeeAllProgress.aspx" />
+    <Content Include="TempPaySlip\tempSlip.html" />
     <Content Include="Utils\delete.txt" />
     <Content Include="Verify.aspx" />
     <Content Include="CreateOrganization.aspx" />
@@ -1841,6 +1847,13 @@
     <Compile Include="Attachments.aspx.designer.cs">
       <DependentUpon>Attachments.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Attendance.aspx.cs">
+      <DependentUpon>Attendance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Attendance.aspx.designer.cs">
+      <DependentUpon>Attendance.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1854,6 +1867,13 @@
     </Compile>
     <Compile Include="Empty.Master.designer.cs">
       <DependentUpon>Empty.Master</DependentUpon>
+    </Compile>
+    <Compile Include="PaySlip.aspx.cs">
+      <DependentUpon>PaySlip.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaySlip.aspx.designer.cs">
+      <DependentUpon>PaySlip.aspx</DependentUpon>
     </Compile>
     <Compile Include="SeeAllProgress.aspx.cs">
       <DependentUpon>SeeAllProgress.aspx</DependentUpon>

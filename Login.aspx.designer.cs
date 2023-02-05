@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ActivityManagementSystem
+namespace EmployeeManagementSystem
 {
 
 

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Verify.aspx.cs" Inherits="ActivityManagementSystem.App_Code.Verify" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Verify.aspx.cs" Inherits="EmployeeManagementSystem.App_Code.Verify" %>
 
 <!DOCTYPE html>
 

@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/home.Master" AutoEventWireup="true" CodeBehind="EncyDncy.aspx.cs" Inherits="ActivityManagementSystem.EncyDncy" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/home.Master" AutoEventWireup="true" CodeBehind="EncyDncy.aspx.cs" Inherits="EmployeeManagementSystem.EncyDncy" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container w-25 borderShadow  centerDiv">
-        <h2 class="text-center text-primary"><i class="bi bi-person-lines-fill mx-2"></i>AMS</h2>
+        <h2 class="text-center text-primary"><i class="bi bi-person-lines-fill mx-2"></i>EMS</h2>
         <div class="input-group mb-3">
             <span class="input-group-text"><i class="bi bi-card-text"></i></span>
             <input type="text" class="form-control" placeholder="Decrypted Text" id="txtDecrypted" runat="server" />

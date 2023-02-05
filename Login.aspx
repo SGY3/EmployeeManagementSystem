@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/home.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="ActivityManagementSystem.Login" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/home.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="EmployeeManagementSystem.Login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container w-25 borderShadow  centerDiv bg-white">
-        <h2 class="text-center text-primary"><i class="bi bi-person-lines-fill mx-2"></i>AMS</h2>
+        <h2 class="text-center text-primary"><i class="bi bi-person-lines-fill mx-2"></i>EMS</h2>
         <div class="input-group mb-3">
             <span data-aos="flip-right" class="input-group-text"><i class="bi bi-building"></i></span>
             <input type="text"  class="form-control" placeholder="Organization Id" id="txtOrganizationId" runat="server" />

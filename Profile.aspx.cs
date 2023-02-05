@@ -6,9 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ActivityManagementSystem.App_Code;
+using EmployeeManagementSystem.App_Code;
 
-namespace ActivityManagementSystem
+namespace EmployeeManagementSystem
 {
     public partial class Profile : System.Web.UI.Page
     {

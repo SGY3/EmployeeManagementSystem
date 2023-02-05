@@ -7,47 +7,65 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EmployeeManagementSystem
+namespace ActivityManagementSystem
 {
 
 
-    public partial class home
+    public partial class PaySlip
     {
 
         /// <summary>
-        /// head control.
+        /// btnJan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnJan;
 
         /// <summary>
-        /// form1 control.
+        /// btnFeb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnFeb;
 
         /// <summary>
-        /// ContentPlaceHolder1 control.
+        /// btnMar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnMar;
 
         /// <summary>
-        /// divMsg control.
+        /// btnApr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMsg;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnApr;
+
+        /// <summary>
+        /// btnMay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnMay;
+
+        /// <summary>
+        /// btnJun control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnJun;
     }
 }

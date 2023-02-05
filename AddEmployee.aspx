@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddEmployee.aspx.cs" Inherits="ActivityManagementSystem.AddEmployee" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddEmployee.aspx.cs" Inherits="EmployeeManagementSystem.AddEmployee" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -33,12 +33,12 @@
                     <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-success btn-sm mx-1" />
                     <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_Click" Visible="false" CssClass="btn btn-warning btn-sm mx-1" />
                     <asp:Button ID="btnReset" runat="server" Text="Reset" OnClick="btnReset_Click" CssClass="btn btn-danger btn-sm mx-1" />
-                    <asp:Button ID="btnPassReset" runat="server" Text="Reset Password" OnClick="btnPassReset_Click" CssClass="btn btn-warning btn-sm mx-1" />
+                    <asp:Button ID="btnPassReset" runat="server" Text="Reset Password" OnClick="btnPassReset_Click" CssClass="btn btn-warning btn-sm mx-1" Visible="false" />
                 </div>
             </div>
             <div class="col-md-8">
                 <div style="overflow-x: auto; width: 100%">
-                    <asp:GridView ID="GvEmployee" runat="server" AutoGenerateColumns="false" CssClass="table table-sm table-hover table-striped table-bordered" OnRowCommand="GvEmployee_RowCommand"  AllowPaging="True" OnPageIndexChanging="GvEmployee_PageIndexChanging" PageSize="10" >
+                    <asp:GridView ID="GvEmployee" runat="server" AutoGenerateColumns="false" CssClass="table table-sm table-hover table-striped table-bordered" OnRowCommand="GvEmployee_RowCommand" AllowPaging="True" OnPageIndexChanging="GvEmployee_PageIndexChanging" PageSize="10">
                         <Columns>
                             <asp:TemplateField ItemStyle-Width="30">
                                 <ItemTemplate>

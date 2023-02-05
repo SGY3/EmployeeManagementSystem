@@ -1,8 +1,8 @@
-﻿using ActivityManagementSystem.App_Code;
+﻿using EmployeeManagementSystem.App_Code;
 using System;
 using System.Data.SqlClient;
 
-namespace ActivityManagementSystem
+namespace EmployeeManagementSystem
 {
     public partial class Register : System.Web.UI.Page
     {

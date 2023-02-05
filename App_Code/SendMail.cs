@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Net;
 using System.Net.Mail;
-namespace ActivityManagementSystem.App_Code
+namespace EmployeeManagementSystem.App_Code
 {
 
     public class SendMail
@@ -11,18 +11,18 @@ namespace ActivityManagementSystem.App_Code
         public void SendOraganizationVerify(string toMail)
         {
             string subject = "Verify your email";
-            string body = "Click on Verification link to  activate your AMS Organization account <a href=\"" + cc.GetWepAppLink() + "Verify.aspx?oid=" + cc.Encrypt(toMail) + "\">";
+            string body = "Click on Verification link to  activate your EMS Organization account <a href=\"" + cc.GetWepAppLink() + "Verify.aspx?oid=" + cc.Encrypt(toMail) + "\">Click Here</a>";
             MailSend(subject, body, toMail);
         }
         public void SendNewUserVerify(string toMail, string ogCode)
         {
             string subject = "Verify your email";
-            string body = "Click on Verification link to  activate your AMS account <a href=\"" + cc.GetWepAppLink() + "Verify.aspx?ogCode=" + cc.Encrypt(ogCode) + "&regMail=" + cc.Encrypt(toMail) + "\">";
+            string body = "Click on Verification link to  activate your EMS account <a href=\"" + cc.GetWepAppLink() + "Verify.aspx?ogCode=" + cc.Encrypt(ogCode) + "&regMail=" + cc.Encrypt(toMail) + "\">Click Here</a>";
             MailSend(subject, body, toMail);
         }
         public void SendNewEmpCreation(string toMail, string ogCode, string EmpId)
         {
-            string subject = "AMS Login Credential";
+            string subject = "EMS Login Credential";
             string body = "Your Organization id=" + ogCode + ", Username=" + EmpId + ", Your Password=" + EmpId + " </br> This is default password kindly change your password after login in";
             MailSend(subject, body, toMail);
         }
@@ -34,7 +34,7 @@ namespace ActivityManagementSystem.App_Code
             using (SqlConnection con = new SqlConnection(cc.GetConnectionString()))
             {
                 con.Open();
-                string sql = "";
+                string sql;
                 sql = "Select [Email] FROM [MstrLogin] Where OgCode=@OgCode and UserName=@EmpId";
 
                 using (SqlCommand cmd = new SqlCommand(sql, con))
@@ -58,7 +58,7 @@ namespace ActivityManagementSystem.App_Code
                 using (SqlConnection con = new SqlConnection(cc.GetConnectionString()))
                 {
                     con.Open();
-                    string sql = "select [EmailId],[EmailPassword] ,[EmailPort],[EmailHost] from AMS_Parameter";
+                    string sql = "select [EmailId],[EmailPassword] ,[EmailPort],[EmailHost] from EMS_Parameter";
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
                         using (SqlDataReader reader = cmd.ExecuteReader())
@@ -75,22 +75,24 @@ namespace ActivityManagementSystem.App_Code
                     }
                 }
 
-                var smtp = new SmtpClient
+                using (SmtpClient smtpClient = new SmtpClient())
                 {
-                    Host = host,
-                    Port = port,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(fromAddress, fromPassword)
-                };
-                using (var message = new MailMessage(fromAddress, toAddress)
-                {
-                    Subject = subject,
-                    Body = body
-                })
-                {
-                    smtp.Send(message);
+                    smtpClient.Host = host;
+                    smtpClient.Port = port;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.Credentials = new NetworkCredential(fromAddress, fromPassword);
+
+                    using (MailMessage mail = new MailMessage(fromAddress, toAddress))
+                    {
+                        mail.IsBodyHtml= true;
+                        mail.From = new MailAddress(fromAddress, "EMS");
+                        mail.Subject = subject;
+                        mail.Body = body;
+
+                        smtpClient.Send(mail);
+                    }
                 }
             }
             catch (Exception ex)

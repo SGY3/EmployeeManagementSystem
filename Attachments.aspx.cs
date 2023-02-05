@@ -1,4 +1,4 @@
-﻿using ActivityManagementSystem.App_Code;
+﻿using EmployeeManagementSystem.App_Code;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -6,7 +6,7 @@ using System.IO;
 using System.Web.Services.Description;
 using System.Web.UI.WebControls;
 
-namespace ActivityManagementSystem
+namespace EmployeeManagementSystem
 {
     public partial class Attachments : System.Web.UI.Page
     {
@@ -94,7 +94,7 @@ namespace ActivityManagementSystem
                 using (SqlConnection con = new SqlConnection(cc.GetConnectionString()))
                 {
                     con.Open();
-                    string sql = "select MaxFileSize from AMS_Parameter";
+                    string sql = "select MaxFileSize from EMS_Parameter";
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
                         allowSize = cc.StoI(cmd.ExecuteScalar().ToString());
@@ -106,10 +106,9 @@ namespace ActivityManagementSystem
                     return false;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                ShowMsg("R", ex.Message.ToString());
             }
             return true;
         }
@@ -171,8 +170,8 @@ namespace ActivityManagementSystem
             GridViewRow gvr = ((LinkButton)sender).NamingContainer as GridViewRow;
             if (gvr != null)
             {
-                string FilePath = gvr.Cells[3].Text;
-                string FileName = gvr.Cells[2].Text;
+                string FileName = gvr.Cells[5].Text;
+                string FilePath = gvr.Cells[4].Text;
                 string fullpath = Server.MapPath("~/" + FilePath + "/" + FileName + "");
                 DownloadFile(fullpath);
             }
@@ -182,8 +181,16 @@ namespace ActivityManagementSystem
             try
             {
                 var fi = new FileInfo(file);
+                string FileExtention = fi.Extension.ToString();
                 Response.Clear();
-                Response.ContentType = "application/octet-stream";
+                if (FileExtention == ".mp4")
+                {
+                    Response.ContentType = "video/mp4";
+                }
+                else
+                {
+                    Response.ContentType = "application/octet-stream";
+                }
                 Response.AddHeader("Content-Disposition", "attachment; filename=" + fi.Name);
                 Response.WriteFile(file);
                 Response.End();
@@ -236,7 +243,7 @@ namespace ActivityManagementSystem
 
         protected void GvAttachment_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            GvAttachment.PageIndex= e.NewPageIndex;
+            GvAttachment.PageIndex = e.NewPageIndex;
             BindGrid(ActivityId, ToDoId);
         }
     }

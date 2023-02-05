@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
-using System.Data.SqlClient;
-using static System.Net.WebRequestMethods;
 
-namespace ActivityManagementSystem.App_Code
+namespace EmployeeManagementSystem.App_Code
 {
     public class Common
     {
+        string EncryptionKey = "ActivityMaster2023";
         public string GetWepAppLink()
         {
             string link = " http://localhost:63122/";
@@ -22,7 +19,7 @@ namespace ActivityManagementSystem.App_Code
             SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder();
             sqlConnectionStringBuilder.Clear();
             sqlConnectionStringBuilder.DataSource = "MSI";
-            sqlConnectionStringBuilder.InitialCatalog = "AMS2022";
+            sqlConnectionStringBuilder.InitialCatalog = "EMSNew";
             sqlConnectionStringBuilder.UserID = "sa";
             sqlConnectionStringBuilder.Password = "admin@123";
             sqlConnectionStringBuilder.MultipleActiveResultSets = true;
@@ -31,7 +28,6 @@ namespace ActivityManagementSystem.App_Code
         }
         public string Encrypt(string clearText)
         {
-            string EncryptionKey = "AMS2022";
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
             using (Aes encryptor = Aes.Create())
             {
@@ -54,7 +50,6 @@ namespace ActivityManagementSystem.App_Code
         {
             try
             {
-                string EncryptionKey = "AMS2022";
                 cipherText = cipherText.Replace(" ", "+");
                 byte[] cipherBytes = Convert.FromBase64String(cipherText);
                 using (Aes encryptor = Aes.Create())
@@ -205,7 +200,7 @@ namespace ActivityManagementSystem.App_Code
         }
         public string TodaysDate()
         {
-            return DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
     }
 }

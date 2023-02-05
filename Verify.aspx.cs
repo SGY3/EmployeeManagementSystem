@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Reflection;
 
-namespace ActivityManagementSystem.App_Code
+namespace EmployeeManagementSystem.App_Code
 {
     public partial class Verify : System.Web.UI.Page
     {

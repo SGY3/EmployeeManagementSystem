@@ -1,4 +1,4 @@
-﻿using ActivityManagementSystem.App_Code;
+﻿using EmployeeManagementSystem.App_Code;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 
-namespace ActivityManagementSystem
+namespace EmployeeManagementSystem
 {
     public partial class CreateOrganization : System.Web.UI.Page
     {

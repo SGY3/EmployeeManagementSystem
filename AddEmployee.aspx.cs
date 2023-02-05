@@ -1,14 +1,10 @@
-﻿using ActivityManagementSystem.App_Code;
+﻿using EmployeeManagementSystem.App_Code;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace ActivityManagementSystem
+namespace EmployeeManagementSystem
 {
     public partial class AddEmployee : System.Web.UI.Page
     {
@@ -124,6 +120,7 @@ namespace ActivityManagementSystem
             btnSave.Visible = true;
             btnUpdate.Visible = false;
             hiddenEmp.Value = "";
+            btnPassReset.Visible = false;
         }
         private Boolean BlankCheck()
         {
@@ -220,6 +217,7 @@ namespace ActivityManagementSystem
                     }
                     btnSave.Visible = false;
                     btnUpdate.Visible = true;
+                    btnPassReset.Visible = true;
                 }
             }
             catch (Exception ex)
@@ -303,22 +301,29 @@ namespace ActivityManagementSystem
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(cc.GetConnectionString()))
+                if (hiddenEmp.Value != "")
                 {
-                    con.Open();
-                    string sql = "update MstrLogin set password=@password,PasswordResetFlag='Y' where UserName=@UserName and IsActive='Y' and OgCode=@OgCode";
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    using (SqlConnection con = new SqlConnection(cc.GetConnectionString()))
                     {
-                        cmd.Parameters.AddWithValue("@UserName", hiddenEmp.Value.ToString());
-                        cmd.Parameters.AddWithValue("@OgCode", Session["OgCode"].ToString());
-                        cmd.Parameters.AddWithValue("@password", cc.Encrypt(hiddenEmp.Value.ToString()));
-                        cmd.ExecuteNonQuery();
+                        con.Open();
+                        string sql = "update MstrLogin set password=@password,PasswordResetFlag='Y' where UserName=@UserName and IsActive='Y' and OgCode=@OgCode";
+                        using (SqlCommand cmd = new SqlCommand(sql, con))
+                        {
+                            cmd.Parameters.AddWithValue("@UserName", hiddenEmp.Value.ToString());
+                            cmd.Parameters.AddWithValue("@OgCode", Session["OgCode"].ToString());
+                            cmd.Parameters.AddWithValue("@password", cc.Encrypt(hiddenEmp.Value.ToString()));
+                            cmd.ExecuteNonQuery();
+                        }
                     }
+                    ShowMsg("G", "Password reset successfully");
+                    mail.SendNewEmpCreation(txtEmail.Text.ToString(), Session["OgCode"].ToString(), hiddenEmp.Value.ToString());
+                    BindGrid();
+                    Reset();
                 }
-                ShowMsg("G", "Password reset successfully");
-                mail.SendNewEmpCreation(txtEmail.Text.ToString(), Session["OgCode"].ToString(), hiddenEmp.Value.ToString());
-                BindGrid();
-                Reset();
+                else
+                {
+                    ShowMsg("W", "Please select employee to reset password!");
+                }
             }
             catch (Exception ex)
             {

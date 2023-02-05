@@ -1,11 +1,11 @@
-﻿using ActivityManagementSystem.App_Code;
+﻿using EmployeeManagementSystem.App_Code;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 
-namespace ActivityManagementSystem
+namespace EmployeeManagementSystem
 {
     public partial class TransferActivity : System.Web.UI.Page
     {
