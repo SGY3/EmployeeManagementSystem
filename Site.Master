@@ -85,22 +85,21 @@
             <div id="divMsg" class="bottomDiv" runat="server">
             </div>
         </div>
+        
+        <script src="lib/jquery/jquery.min.js"></script>
+        <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script>
+            $(document).ready(function () {
 
+                window.setTimeout(function () {
+                    $(".alert").fadeTo(1000, 0).fadeOut(1000, function () {
+                        $(this).remove();
+                        $("#divMsg").empty();
+                    });
+                }, 5000);
 
+            });
+        </script>
     </form>
-    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/jquery/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-
-            window.setTimeout(function () {
-                $(".alert").fadeTo(1000, 0).fadeOut(1000, function () {
-                    $(this).remove();
-                    $("#divMsg").empty();
-                });
-            }, 5000);
-
-        });
-    </script>
 </body>
 </html>

@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using ClosedXML.Excel;
 
 namespace EmployeeManagementSystem.App_Code
 {
@@ -200,7 +203,65 @@ namespace EmployeeManagementSystem.App_Code
         }
         public string TodaysDate()
         {
-            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff");
+        }
+
+        public DataTable ConvertExcelToDataTable(string filePath, string OnlyColumn = "N")
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (XLWorkbook workbook = new XLWorkbook(filePath))
+                {
+                    IXLWorksheet worksheet = workbook.Worksheet(1);
+                    bool firstRow = true;
+                    foreach (IXLRow row in worksheet.Rows())
+                    {
+                        if (firstRow)
+                        {
+                            if (OnlyColumn == "N")
+                            {
+                                foreach (IXLCell cell in row.Cells())
+                                {
+                                    dt.Columns.Add(cell.Value.ToString());
+                                }
+                                firstRow = false;
+                            }
+                            else
+                            {
+                                dt.Columns.Add("Text", typeof(string));
+                                dt.Columns.Add("Value", typeof(string));
+                                foreach (IXLCell cell in row.Cells())
+                                {
+                                    DataRow dr = dt.NewRow();
+                                    dr["Text"] = cell.Value.ToString();
+                                    dr["Value"] = cell.Value.ToString();
+                                    dt.Rows.Add(dr);
+                                }
+                                return dt;
+                            }
+                        }
+                        else
+                        {
+                            DataRow dr = dt.NewRow();
+                            int i = 0;
+                            foreach (IXLCell cell in row.Cells(1, dt.Columns.Count))
+                            {
+                                dt.Rows[dt.Rows.Count - 1][i] = cell.Value.ToString();
+                                i++;
+                            }
+                            dt.Rows.Add(dr);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            dt.Rows.Cast<DataRow>().Where(r => r.ItemArray.All(c => c is DBNull || string.IsNullOrWhiteSpace(c.ToString())))
+                            .ToList().ForEach(r => dt.Rows.Remove(r));
+            return dt;
         }
     }
 }
