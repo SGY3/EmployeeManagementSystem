@@ -48,12 +48,37 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container borderShadow my-3">
+        <div class="table-responsive">
+            <table id="myTable" class="table" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Activity Code</th>
+                        <th>ToDo Code</th>
+                        <th>Project Name</th>
+                        <th>Short Title</th>
+                        <th>Description</th>
+                        <th>Activity Type</th>
+                        <th>Page Name</th>
+                        <th>SP Name</th>
+                        <th>Priority</th>
+                        <th>Completion Status</th>
+                        <th>Assign To</th>
+                        <th>User ID</th>
+                        <th>Created By</th>
+                        <th>Created On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
         <div class="d-flex justify-content-center">
             <asp:Label ID="lblMessage" runat="server" CssClass="text-center h2 text-warning" Text=""></asp:Label>
         </div>
         <div style="overflow-x: auto; width: 100%">
-            <asp:GridView ID="GvDashboard" runat="server" AutoGenerateColumns="false" CssClass="table table-sm table-hover table-striped table-bordered" AllowPaging="True" OnPageIndexChanging="GvDashboard_PageIndexChanging" PageSize="5">
+            <%-- <asp:GridView ID="GvDashboard" runat="server" AutoGenerateColumns="false" CssClass="table table-sm table-hover table-striped table-bordered" AllowPaging="True" OnPageIndexChanging="GvDashboard_PageIndexChanging" PageSize="5">
                 <Columns>
                     <asp:BoundField DataField="ActivityCode" HeaderText="Activity Code" ItemStyle-Width="30" />
                     <asp:BoundField DataField="ToDoCode" HeaderText="ToDo Code" ItemStyle-Width="30" />
@@ -70,7 +95,52 @@
                     <asp:BoundField DataField="CreatedBy" HeaderText="Created By" ItemStyle-Width="30" />
                     <asp:BoundField DataField="CreatedOn" HeaderText="Created On" ItemStyle-Width="30" />
                 </Columns>
-            </asp:GridView>
+            </asp:GridView>--%>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                data: <%= GetData() %>,
+                columns: [
+                    {
+                        data: null,
+                        render: function (data, type, row) {
+                            return '<button type="button" class="btn btn-danger btn-sm" onclick="performAction(\'' + row.ActivityCode + '\')">Delete</button>';
+                        }
+                    },
+                    { data: "ActivityCode" },
+                    { data: "ToDoCode" },
+                    { data: "ProjectName" },
+                    { data: "ShortTitle" },
+                    { data: "Description" },
+                    { data: "ActivityType" },
+                    { data: "PageName" },
+                    { data: "SpName" },
+                    { data: "Priority" },
+                    { data: "CompletionStatus" },
+                    { data: "AssignTo" },
+                    { data: "UserId" },
+                    { data: "CreatedBy" },
+                    { data: "CreatedOn" }
+                ]
+            });
+        });
+        function performAction(activityCode) {
+            // Call a server-side function to perform the necessary action
+            $.ajax({
+                type: "POST",
+                url: "MyPage.aspx/PerformAction",
+                data: '{activityCode: "' + activityCode + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    // Handle the response from the server
+                },
+                error: function (response) {
+                    // Handle any errors that occurred
+                }
+            });
+        }
+    </script>
 </asp:Content>

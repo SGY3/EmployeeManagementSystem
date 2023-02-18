@@ -243,14 +243,13 @@ namespace EmployeeManagementSystem.App_Code
                         }
                         else
                         {
-                            DataRow dr = dt.NewRow();
+                            dt.Rows.Add();
                             int i = 0;
                             foreach (IXLCell cell in row.Cells(1, dt.Columns.Count))
                             {
                                 dt.Rows[dt.Rows.Count - 1][i] = cell.Value.ToString();
                                 i++;
                             }
-                            dt.Rows.Add(dr);
                         }
                     }
                 }

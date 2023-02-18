@@ -1,4 +1,5 @@
 ﻿using EmployeeManagementSystem.App_Code;
+using Newtonsoft.Json;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace EmployeeManagementSystem
                     {
                         lblTitle.Text = "Dashboard";
                     }
-                    BindGrid();
+                    //BindGrid();
                     BindIndicator();
                 }
             }
@@ -31,7 +32,7 @@ namespace EmployeeManagementSystem
                 Response.Redirect(LoginPageUrl);
             }
         }
-        private void BindGrid()
+        private DataTable GetDataTable()
         {
             try
             {
@@ -60,16 +61,17 @@ namespace EmployeeManagementSystem
                         using (DataTable dt = new DataTable())
                         {
                             dt.Load(cmd.ExecuteReader());
-                            if (dt.Rows.Count > 0)
-                            {
-                                lblMessage.Text = "";
-                            }
-                            else
-                            {
-                                lblMessage.Text = "No data to show";
-                            }
-                            GvDashboard.DataSource = dt;
-                            GvDashboard.DataBind();
+                            return dt;
+                            //if (dt.Rows.Count > 0)
+                            //{
+                            //    lblMessage.Text = "";
+                            //}
+                            //else
+                            //{
+                            //    lblMessage.Text = "No data to show";
+                            //}
+                            //GvDashboard.DataSource = dt;
+                            //GvDashboard.DataBind();
                         }
                     }
                 }
@@ -78,6 +80,30 @@ namespace EmployeeManagementSystem
             {
                 ShowMsg("R", ex.Message.ToString());
             }
+            DataTable dt1 = new DataTable();
+            return dt1;
+        }
+        protected string GetData()
+        {
+            DataTable dt = GetDataTable();
+            string json = JsonConvert.SerializeObject(dt);
+            return json;
+        }
+        
+        protected string DataTableToJSON(DataTable dt)
+        {
+            string json = "[";
+            foreach (DataRow row in dt.Rows)
+            {
+                json += "{";
+                foreach (DataColumn col in dt.Columns)
+                {
+                    json += "\"" + col.ColumnName + "\":\"" + row[col].ToString() + "\",";
+                }
+                json = json.TrimEnd(',') + "},";
+            }
+            json = json.TrimEnd(',') + "]";
+            return json;
         }
         private void BindIndicator()
         {
@@ -124,10 +150,10 @@ namespace EmployeeManagementSystem
             site.ShowMessage(color, msg);
         }
 
-        protected void GvDashboard_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            GvDashboard.PageIndex = e.NewPageIndex;
-            BindGrid();
-        }
+        //protected void GvDashboard_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        //{
+        //    GvDashboard.PageIndex = e.NewPageIndex;
+        //    BindGrid();
+        //}
     }
 }

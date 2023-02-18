@@ -15,15 +15,6 @@ namespace ActivityManagementSystem
     {
 
         /// <summary>
-        /// UpdatePanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-
-        /// <summary>
         /// fuFile control.
         /// </summary>
         /// <remarks>
@@ -40,15 +31,6 @@ namespace ActivityManagementSystem
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUploadFile;
-
-        /// <summary>
-        /// UpdatePanel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
 
         /// <summary>
         /// tblDynamicControl control.

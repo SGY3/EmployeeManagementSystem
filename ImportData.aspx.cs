@@ -1,11 +1,10 @@
 ﻿using EmployeeManagementSystem;
 using EmployeeManagementSystem.App_Code;
 using System;
-using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Web;
+using System.Net.NetworkInformation;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -19,7 +18,7 @@ namespace ActivityManagementSystem
         {
             CreateDynamicControl();
         }
-            protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserId"] != null)
             {
@@ -29,6 +28,10 @@ namespace ActivityManagementSystem
                     {
                         lblTitle.Text = "Import Data";
                     }
+                }
+                if (ViewState["ExcelColumnData"] != null)
+                {
+                    CreateDynamicControl();
                 }
             }
             else
@@ -57,12 +60,13 @@ namespace ActivityManagementSystem
 
                     using (DataTable dt = cc.ConvertExcelToDataTable(fileSavePath, "Y"))
                     {
-                        Session["ExcelColumnData"] = dt;
+                        ViewState["ExcelColumnData"] = dt;
                     }
+                    ViewState["FilePathExcel"] = fileSavePath;
                     tblDynamicControl.Controls.Clear();
                     CreateDynamicControl();
                     // call the JavaScript function
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showalert", "openModal();", true);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "showalert", "openModal();", true);
                 }
             }
             catch (Exception ex)
@@ -76,37 +80,45 @@ namespace ActivityManagementSystem
         }
         private void CreateDynamicControl()
         {
-            if (Session["ExcelColumnData"] != null)
+            try
             {
-                string[] Array = { "Project Name", "Short Title", "Description", "Activity Type" };
-
-                for (int count = 0; count < Array.Length; count++)
+                if (ViewState["ExcelColumnData"] != null)
                 {
-                    TableRow row = new TableRow();
-                    TableCell cell1 = new TableCell();
-                    TableCell cell2 = new TableCell();
+                    tblDynamicControl.Controls.Clear();
+                    string[] Array = { "Project Name", "Short Title", "Description", "Activity Type" };
 
-                    DropDownList emsDDL = new DropDownList();
-                    emsDDL.ID = "ddlEmsDynamic" + count.ToString();
-                    emsDDL.Items.Add(new ListItem(Array[count], Array[count].Replace(" ", "")));
-                    emsDDL.CssClass = "form-select";
-                    emsDDL.Enabled = false;
-                    emsDDL.DataBind();
-                    cell1.Controls.Add(emsDDL);
-                    row.Cells.Add(cell1);
+                    for (int count = 0; count < Array.Length; count++)
+                    {
+                        TableRow row = new TableRow();
+                        TableCell cell1 = new TableCell();
+                        TableCell cell2 = new TableCell();
 
-                    DropDownList excelDDL = new DropDownList();
-                    excelDDL.ID = "ddlExcelDynamic" + count.ToString();
-                    excelDDL.DataSource = (DataTable)Session["ExcelColumnData"];
-                    excelDDL.DataValueField = "Value";
-                    excelDDL.DataTextField = "Text";
-                    excelDDL.CssClass = "form-select";
-                    excelDDL.DataBind();
-                    cell2.Controls.Add(excelDDL);
-                    row.Cells.Add(cell2);
+                        DropDownList emsDDL = new DropDownList();
+                        emsDDL.ID = "ddlEmsDynamic" + count.ToString();
+                        emsDDL.Items.Add(new ListItem(Array[count], Array[count].Replace(" ", "")));
+                        emsDDL.CssClass = "form-select disabled";
+                        emsDDL.Enabled = false;
+                        emsDDL.DataBind();
+                        cell1.Controls.Add(emsDDL);
+                        row.Cells.Add(cell1);
 
-                    tblDynamicControl.Controls.Add(row);
+                        DropDownList excelDDL = new DropDownList();
+                        excelDDL.ID = "ddlExcelDynamic" + count.ToString();
+                        excelDDL.DataSource = (DataTable)ViewState["ExcelColumnData"];
+                        excelDDL.DataValueField = "Value";
+                        excelDDL.DataTextField = "Text";
+                        excelDDL.CssClass = "form-select ";
+                        excelDDL.DataBind();
+                        cell2.Controls.Add(excelDDL);
+                        row.Cells.Add(cell2);
+
+                        tblDynamicControl.Controls.Add(row);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ShowMsg("R", ex.Message.ToString());
             }
         }
         public void ShowMsg(string color, string msg)
@@ -117,7 +129,58 @@ namespace ActivityManagementSystem
 
         protected void btnImportData_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "showalert", "openModal();", true);
+            try
+            {
+                using (SqlConnection con = new SqlConnection(cc.GetConnectionString()))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand("Delete from TempTodo where OgCode=@OgCode and AddedBy=@AddedBy", con))
+                    {
+                        cmd.Parameters.AddWithValue("@OgCode", Session["OgCode"].ToString());
+                        cmd.Parameters.AddWithValue("@AddedBy", Session["UserId"].ToString());
+                        cmd.ExecuteNonQuery();
+                    }
+                    using (SqlBulkCopy bulkCopy = new SqlBulkCopy(con))
+                    {
+                        bulkCopy.DestinationTableName = "dbo.TempTodo";
+                        foreach (TableRow tableRow in tblDynamicControl.Rows)
+                        {
+                            DropDownList ddlEms = (DropDownList)tableRow.Cells[0].Controls[0];
+                            DropDownList ddlExcel = (DropDownList)tableRow.Cells[1].Controls[0];
+                            bulkCopy.ColumnMappings.Add(ddlExcel.SelectedValue.ToString(), ddlEms.SelectedValue.ToString());
+                        }
+                        using (DataTable dt = cc.ConvertExcelToDataTable(ViewState["FilePathExcel"].ToString()))
+                        {
+                            DataColumn dataColumn = new DataColumn("OgCode");
+                            dataColumn.DefaultValue = Session["OgCode"].ToString();
+                            dt.Columns.Add(dataColumn);
+
+                            dataColumn = new DataColumn("AddedBy");
+                            dataColumn.DefaultValue = Session["UserId"].ToString();
+                            dt.Columns.Add(dataColumn);
+
+                            bulkCopy.ColumnMappings.Add("OgCode", "OgCode");
+                            bulkCopy.ColumnMappings.Add("AddedBy", "AddedBy");
+                            bulkCopy.WriteToServer(dt);
+                        }
+                    }
+                    using (SqlCommand cmd = new SqlCommand("ImportDataTodo", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@OgCode", Session["OgCode"].ToString());
+                        cmd.Parameters.AddWithValue("@AddedBy", Session["UserId"].ToString());
+                        cmd.Parameters.AddWithValue("@AddedOn", cc.TodaysDate());
+                        cmd.ExecuteNonQuery();
+                    }
+
+                }
+                ShowMsg("G", "Data Imported Successfully");
+            }
+            catch (Exception ex)
+            {
+                ShowMsg("R", ex.Message.ToString());
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showalert", "openModal();", true);
+            }
         }
     }
 }
